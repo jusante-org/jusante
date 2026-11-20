@@ -1,0 +1,6 @@
+# Responsáveis por revisar cada área do projeto.
+# Mudanças em qualquer arquivo pedem revisão do fundador nesta fase.
+*            @andrepbomfim
+
+# Cálculos de engenharia exigem revisão técnica (ampliar quando houver revisores técnicos).
+/backend/**/hidraulica/   @andrepbomfim
