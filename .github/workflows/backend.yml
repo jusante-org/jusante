@@ -1,0 +1,44 @@
+name: Backend
+
+on:
+  push:
+    branches: [main]
+    paths: ["backend/**", ".github/workflows/backend.yml"]
+  pull_request:
+    paths: ["backend/**", ".github/workflows/backend.yml"]
+
+jobs:
+  testes:
+    runs-on: ubuntu-latest
+    services:
+      db:
+        image: postgis/postgis:16-3.4
+        env:
+          POSTGRES_DB: jusante
+          POSTGRES_USER: jusante
+          POSTGRES_PASSWORD: jusante
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U jusante"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    defaults:
+      run:
+        working-directory: backend
+    env:
+      JUSANTE_DEBUG: "1"
+      POSTGRES_HOST: localhost
+      POSTGRES_USER: jusante
+      POSTGRES_PASSWORD: jusante
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Instalar GDAL
+        run: sudo apt-get update && sudo apt-get install -y gdal-bin libgdal-dev
+      - name: Instalar dependências
+        run: pip install "django>=5.2,<5.3" "psycopg[binary]>=3.2"
+      - name: Verificar migrações pendentes
+        run: python manage.py makemigrations --check --dry-run
+      - name: Rodar testes
+        run: python manage.py test -v2
