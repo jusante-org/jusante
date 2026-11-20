@@ -1,0 +1,14 @@
+[project]
+name = "jusante-backend"
+version = "0.1.0"
+description = "API e regras de negócio do Jusante: gestão de água e esgoto para municípios brasileiros"
+license = "AGPL-3.0-or-later"
+requires-python = ">=3.12"
+dependencies = [
+    "django>=5.2,<5.3",
+    "psycopg[binary]>=3.2",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"

@@ -35,7 +35,7 @@ stateDiagram-v2
     Programada --> EmExecucao: equipe inicia
     EmExecucao --> Executada: equipe conclui (fotos obrigatórias)
     Executada --> Programada: encarregado devolve (pendência)
-    Executada --> AguardandoReposicao: precisa de reposição
+    Executada --> AguardandoReposicao: encarregado valida (precisa de reposição)
     AguardandoReposicao --> Encerrada: OS filha de reposição concluída
     Executada --> Encerrada: encarregado valida
     Aberta --> Cancelada
@@ -45,6 +45,8 @@ stateDiagram-v2
 ```
 
 Cancelamento só antes da programação, sempre com justificativa.
+
+Quando a equipe indica que o serviço precisa de reposição, o encarregado valida a execução e o sistema abre automaticamente uma OS filha do tipo "Reposição de pavimento". A OS de origem fica "Aguardando reposição" e se encerra sozinha quando a filha for encerrada.
 
 ## Perfis
 
